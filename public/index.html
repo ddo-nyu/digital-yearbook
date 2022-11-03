@@ -1,40 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="style.css" rel="stylesheet"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" />
     <title>Drawing with Sockets and p5</title>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js"></script>
-</head>
+  </head>
 
-<body>
-<div id="wrapper">
-    <div id="container">
+  <body>
+    <div id="wrapper">
+      <div id="container">
+        <div class="left">
+          <div id="startButton" class="button">Start Recording</div>
+          <h2>Preview</h2>
+          <video id="preview" width="160" height="120" autoplay muted></video>
+        </div>
+
+        <div class="right">
+          <div id="stopButton" class="button">Stop Recording</div>
+          <h2>Recording</h2>
+          <video id="recording" width="160" height="120" controls></video>
+          <a id="downloadButton" class="button"> Download </a>
+        </div>
+        <div id="log"></div>
 
         <section class="open-book">
-            <header>
-            </header>
-            <article>
-                <div>test1</div>
-                <div>test2</div>
-                <div>test3</div>
-                <div>test4</div>
-                <div>test5</div>
-                <div>test6</div>
-            </article>
-            <footer>
-                <ol id="page-numbers">
-                    <li>1</li>
-                    <li>2</li>
-                </ol>
-            </footer>
+          <header></header>
+          <article>
+            <div>test1</div>
+            <div>test2</div>
+            <div>test3</div>
+            <div>test4</div>
+            <div>test5</div>
+            <div>test6</div>
+          </article>
+          <footer>
+            <ol id="page-numbers">
+              <li>1</li>
+              <li>2</li>
+            </ol>
+          </footer>
         </section>
-
+      </div>
     </div>
-</div>
 
-<script src="app.js"></script>
-</body>
+    <script src="app.js"></script>
+    <script src="captureIndividualPhotos.js"></script>
+  </body>
 </html>
