@@ -87,5 +87,6 @@ stopButton.addEventListener(
 * https://web.dev/getusermedia-intro/
 * https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia
 * https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API
+* https://developer.mozilla.org/en-US/docs/Web/API/HTMLCanvasElement/captureStream
 * this was the one that I had the most success with: https://developer.mozilla.org/en-US/docs/Web/API/MediaStream_Recording_API/Recording_a_media_element
 */
