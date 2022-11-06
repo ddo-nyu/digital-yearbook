@@ -6,11 +6,32 @@ html, body {
     overflow: hidden;
 }
 body{
+    font-family: sans-serif;
     background:#ccc;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+ul, li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+#toolbar {
+    position: fixed;
+    z-index: 9;
+    left: 0;
+    height: calc(100% - 4em);
+    background: white;
+    margin: 1em;
+    border-radius: 10px;
+    padding: 1em 0.5em;
+    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+}
+
 #yearbook{
     max-width:1152px;
     max-height:752px;
@@ -23,10 +44,30 @@ body{
 }
 #yearbook .page {
     background: white;
-    /*display: flex;*/
-    /*padding: 20px;*/
-    /*align-items: center;*/
-    /*justify-content: center;*/
+}
+
+#yearbook .page.left_page {
+    box-shadow: inset -13px 0 10px -5px rgb(0 0 0 / 10%);
+}
+
+#yearbook .page.right_page {
+    box-shadow: inset 13px 0 10px -5px rgb(0 0 0 / 10%);
+}
+
+#yearbook .page .page_number {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 1em;
+}
+
+#yearbook .page.left_page .page_number {
+    right: unset;
+    left: 0;
+}
+
+#yearbook .page .content {
+    padding: 20px;
 }
 
 .class_photos {
@@ -34,11 +75,14 @@ body{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     gap: 20px;
-    padding: 20px;
 }
 
 .class_photo {
     background: #eee;
     width: 100%;
     height: 150px;
+}
+
+.draggable_text {
+    z-index: 10;
 }
