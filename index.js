@@ -19,15 +19,19 @@ server.listen(port, () => {
 let io = require("socket.io");
 io = new io.Server(server);
 
+const elementsDB = {};
+
 //Listen for individual clients/users to connect
 io.on("connection", (socket) => {
   console.log("We have a new client: " + socket.id);
+  // Object.values(elementsDB).forEach((obj) => {
+  //   io.emit('show element', obj);
+  // });
 
   //Listen for messages from the client
-  socket.on('chat message', (msg) => { // for testing/example purposes
-    console.log('message: ' + msg);
-    io.emit('chat message', msg);
-
+  socket.on('place element', (params) => { // for testing/example purposes
+    elementsDB[params.id] = params;
+    io.emit('show element', params);
   });
 
   //Listen for this client to disconnect

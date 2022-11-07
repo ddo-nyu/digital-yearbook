@@ -83,6 +83,18 @@ ul, li {
     height: 150px;
 }
 
+.class_photo video {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
 .draggable_text {
     z-index: 10;
+    background: transparent;
+    border: none;
+}
+
+.emitted_text {
+    position: absolute;
 }
