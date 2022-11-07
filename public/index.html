@@ -1,96 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <link href="style.css" rel="stylesheet"/>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="style.css" rel="stylesheet" />
     <title>Digital Yearbook</title>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.js"></script>
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.7.1.min.js"
+    ></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
     <script type="text/javascript" src="turn.js-master/turn.min.js"></script>
-</head>
+  </head>
 
-<body>
-<div id="toolbar">
-    <ul>
+  <body>
+    <div id="toolbar">
+      <ul>
         <li class="toolbar_option" type="add_text">Text</li>
-    </ul>
-</div>
-<div id="yearbook">
-    <div class="page">
-        <div class="content">
-            <!-- Cover -->
-            <h1>IMA Low Res Yearbook 2022-2023</h1>
-        </div>
+      </ul>
     </div>
-    <div class="page">
+    <div id="yearbook">
+      <div class="page">
         <div class="content">
-            <h1>Page 1</h1>
+          <!-- Cover -->
+          <h1>IMA Low Res Yearbook 2022-2023</h1>
         </div>
+      </div>
+      <div class="page">
+        <div class="content">
+          <h1>Page 1</h1>
+        </div>
+      </div>
+      <div class="page">
+        <div class="content">
+          <h1>Welcome to your digital yearbook!</h1>
+        </div>
+      </div>
+      <div class="page">
+        <div class="content">
+          <h1>Class of</h1>
+          <div class="class_photos">
+            <div id="class_photo_1" class="class_photo"></div>
+            <div id="class_photo_2" class="class_photo"></div>
+            <div id="class_photo_3" class="class_photo"></div>
+            <div id="class_photo_4" class="class_photo"></div>
+            <div id="class_photo_5" class="class_photo"></div>
+            <div id="class_photo_6" class="class_photo"></div>
+            <div id="class_photo_7" class="class_photo"></div>
+            <div id="class_photo_8" class="class_photo"></div>
+            <div id="class_photo_9" class="class_photo"></div>
+            <div id="class_photo_10" class="class_photo"></div>
+            <div id="class_photo_11" class="class_photo"></div>
+            <div id="class_photo_12" class="class_photo"></div>
+          </div>
+        </div>
+      </div>
+      <div class="page">
+        <div class="content">
+          <h1>2023</h1>
+          <div class="class_photos">
+            <div id="class_photo_13" class="class_photo"></div>
+            <div id="class_photo_14" class="class_photo"></div>
+            <div id="class_photo_15" class="class_photo"></div>
+            <div id="class_photo_16" class="class_photo"></div>
+            <div id="class_photo_17" class="class_photo"></div>
+            <div id="class_photo_18" class="class_photo"></div>
+            <div id="class_photo_19" class="class_photo"></div>
+            <div id="class_photo_20" class="class_photo"></div>
+            <div id="class_photo_21" class="class_photo"></div>
+            <div id="class_photo_22" class="class_photo"></div>
+            <div id="class_photo_23" class="class_photo"></div>
+            <div id="class_photo_24" class="class_photo"></div>
+          </div>
+        </div>
+      </div>
+      <div class="page">
+        <div class="content"></div>
+      </div>
+      <div class="page">
+        <div class="content"></div>
+      </div>
+      <div class="page">
+        <div class="content">
+          <!-- Back -->
+        </div>
+      </div>
     </div>
-    <div class="page">
-        <div class="content">
-            <h1>Welcome to your digital yearbook!</h1>
-        </div>
-    </div>
-    <div class="page">
-        <div class="content">
-            <h1>Class of</h1>
-            <div class="class_photos">
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-            </div>
-        </div>
 
-    </div>
-    <div class="page">
-        <div class="content">
-            <h1>2023</h1>
-            <div class="class_photos">
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-                <div class="class_photo"></div>
-            </div>
-        </div>
-    </div>
-    <div class="page">
-        <div class="content">
-        </div>
-    </div>
-    <div class="page">
-        <div class="content">
-        </div>
-    </div>
-    <div class="page">
-        <div class="content">
-        <!-- Back -->
-        </div>
-    </div>
-</div>
-
-<script src="app.js"></script>
-</body>
+    <script src="gifshot.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
