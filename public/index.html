@@ -12,6 +12,8 @@
   <body>
     <div id="wrapper">
       <div id="container">
+        <div id="hiddenCanvas" style="display: none"></div>
+
         <div class="capture-video">
           <div class="preview">
             <div id="startButton" class="button">Start Recording</div>
@@ -47,8 +49,12 @@
         </section>
       </div>
     </div>
+    <script type="text/javascript" src="LZWEncoder.js"></script>
+    <script type="text/javascript" src="NeuQuant.js"></script>
+    <script type="text/javascript" src="GIFEncoder.js"></script>
+    <!-- <script type="text/javascript" src="b64.js"></script> -->
+    <script src="captureIndividualMovingPhotos.js"></script>
 
     <script src="app.js"></script>
-    <script src="captureIndividualMovingPhotos.js"></script>
   </body>
 </html>

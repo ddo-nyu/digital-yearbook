@@ -47,17 +47,18 @@ startButton.addEventListener(
       })
       .then((stream) => {
         preview.srcObject = stream;
-        downloadButton.href = stream;
+        // downloadButton.href = stream;
         preview.captureStream =
           preview.captureStream || preview.mozCaptureStream;
         return new Promise((resolve) => (preview.onplaying = resolve));
       })
       .then(() => startRecording(preview.captureStream(), recordingTimeMS))
       .then((recordedChunks) => {
-        let recordedBlob = new Blob(recordedChunks, { type: "video/webm" });
+        let recordedBlob = new Blob(recordedChunks, { type: "video/mp4" });
+        console.log(recordedBlob);
+
         recording.src = URL.createObjectURL(recordedBlob);
-        downloadButton.href = recording.src;
-        downloadButton.download = "RecordedVideo.webm";
+        recording.autoplay = true;
 
         log(
           `Successfully recorded ${recordedBlob.size} bytes of ${recordedBlob.type} media.`
@@ -73,6 +74,7 @@ startButton.addEventListener(
   },
   false
 );
+
 stopButton.addEventListener(
   "click",
   () => {
@@ -80,6 +82,103 @@ stopButton.addEventListener(
   },
   false
 );
+
+downloadButton.addEventListener("click", (e) => {
+  console.log("download clicked");
+});
+
+let vidHeight;
+let vidWidth;
+let bitmapCanvas = document.createElement("canvas");
+let encoder;
+
+recording.addEventListener("play", () => {
+  recording.autoplay = false;
+  vidHeight = recording.videoHeight;
+  vidWidth = recording.videoWidth;
+
+  encoder = new GIFEncoder(vidWidth, vidHeight);
+  encoder.setRepeat(0);
+  encoder.setDelay(500);
+
+  bitmapCanvas.setAttribute("id", "bitmap");
+  bitmapCanvas.setAttribute("width", vidWidth);
+  bitmapCanvas.setAttribute("height", vidHeight);
+  document.getElementById("hiddenCanvas").appendChild(bitmapCanvas);
+
+  const bitmapCtx = bitmapCanvas.getContext("2d");
+  recording.muted = true;
+  recording.loop = false;
+  recording.autoplay = true;
+  const background = () => {
+    bitmapCtx.fillStyle = "#FFFFFF";
+    bitmapCtx.fillRect(0, 0, vidWidth, vidHeight);
+  };
+
+  const step = async () => {
+    await background();
+    await new Promise((resolve) => {
+      bitmapCtx.drawImage(recording, 0, 0, vidWidth, vidHeight);
+      frameB64Str = bitmapCanvas.toDataURL();
+      encoder.addFrame(bitmapCtx);
+      resolve();
+    });
+    window.requestAnimationFrame(step);
+  };
+  encoder.start();
+  step();
+  window.requestAnimationFrame(step);
+});
+
+recording.addEventListener("ended", () => {
+  encoder.finish();
+
+  let fileType = "image/gif";
+  let fileName = `gif-output-${new Date()
+    .toGMTString()
+    .replace(/(\s|,|:)/g, "")}.gif`;
+  let readableStream = encoder.stream();
+  let binaryGif = readableStream.getData();
+  var b64Str = "data:" + fileType + ";base64," + encode64(binaryGif);
+
+  downloadButton.href = b64Str;
+  downloadButton.download = "ee.gif";
+});
+
+function encode64(input) {
+  var output = "",
+    i = 0,
+    l = input.length,
+    key = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+    chr1,
+    chr2,
+    chr3,
+    enc1,
+    enc2,
+    enc3,
+    enc4;
+  while (i < l) {
+    chr1 = input.charCodeAt(i++);
+
+    chr2 = input.charCodeAt(i++);
+    chr3 = input.charCodeAt(i++);
+    enc1 = chr1 >> 2;
+    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+    enc4 = chr3 & 63;
+    if (isNaN(chr2)) enc3 = enc4 = 64;
+    else if (isNaN(chr3)) enc4 = 64;
+    output =
+      output +
+      key.charAt(enc1) +
+      key.charAt(enc2) +
+      key.charAt(enc3) +
+      key.charAt(enc4);
+  }
+  return output;
+}
+
+// used this for converting the webm to gif: https://javascript.plainenglish.io/how-to-convert-a-video-clip-to-a-gif-file-with-client-side-javascript-56575d093191
 
 /* resources: 
 
