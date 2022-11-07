@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../../turn.min.js"></script>
+
+<style type="text/css">
+	html, body {
+		height: 100%;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+	}
+body{
+	background:#ccc;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+#magazine{
+	max-width:1152px;
+	max-height:752px;
+	width:100%;
+	height:100%;
+}
+#magazine .turn-page{
+	background-color:#ccc;
+	background-size:100% 100%;
+}
+</style>
+</head>
+<body>
+
+<div id="magazine">
+	<div style="background-image:url(pages/01.jpg);"></div>
+	<div style="background-image:url(pages/02.jpg);"></div>
+	<div style="background-image:url(pages/03.jpg);"></div>
+	<div style="background-image:url(pages/04.jpg);"></div>
+	<div style="background-image:url(pages/05.jpg);"></div>
+	<div style="background-image:url(pages/06.jpg);"></div>
+</div>
+
+
+<script type="text/javascript">
+
+	$(window).ready(function() {
+		$('#magazine').turn({
+							display: 'double',
+							acceleration: true,
+							gradients: !$.isTouch,
+							elevation:50,
+							when: {
+								turned: function(e, page) {
+									/*console.log('Current view: ', $(this).turn('view'));*/
+								}
+							}
+						});
+	});
+	
+	
+	$(window).bind('keydown', function(e){
+		
+		if (e.keyCode==37)
+			$('#magazine').turn('previous');
+		else if (e.keyCode==39)
+			$('#magazine').turn('next');
+			
+	});
+
+</script>
+
+</body>
+</html>
