@@ -69,33 +69,52 @@ document.querySelectorAll(".class_photo").forEach((item) => {
     console.log("clicked on an image", item.id);
     let selector = "div#" + item.id;
     let imagePlaceholder = document.querySelector(selector);
-    const video = imagePlaceholder.querySelector('video');
+    const video = imagePlaceholder.querySelector("video");
+    const countdown = imagePlaceholder.querySelector(".countdown");
 
-      if (navigator.mediaDevices.getUserMedia) {
-          navigator.mediaDevices.getUserMedia({ video: true })
-              .then(function (stream) {
-                  video.srcObject = stream;
+    if (navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices
+        .getUserMedia({ video: true })
+        .then(function (stream) {
+          video.srcObject = stream;
+          return stream;
+        })
+        .then((stream) => {
+          var timeleft = 5;
+          var timer = setInterval(function () {
+            if (timeleft <= 0) {
+              clearInterval(timer);
+            } else {
+              countdown.innerHTML = timeleft;
+            }
+            timeleft -= 1;
+          }, 1000);
 
-
-                  // gifshot.createGIF(
-                  //   {
-                  //     gifWidth: imagePlaceholder.clientWidth,
-                  //     gifHeight: imagePlaceholder.clientHeight,
-                  //   },
-                  //   function (obj) {
-                  //     if (!obj.error) {
-                  //       var image = obj.image;
-                  //       var animatedImage = document.createElement("img");
-                  //       animatedImage.src = image;
-                  //       imagePlaceholder.appendChild(animatedImage);
-                  //     }
-                  //   }
-                  // );
-              })
-              .catch(function (err0r) {
-                  console.log("Something went wrong!");
-              });
-      }
+          setTimeout(() => {
+            console.log("creating the gif");
+            gifshot.createGIF(
+              {
+                cameraStream: stream,
+                gifWidth: imagePlaceholder.clientWidth,
+                gifHeight: imagePlaceholder.clientHeight,
+              },
+              function (obj) {
+                if (!obj.error) {
+                  var animatedImage = document.createElement("img");
+                  animatedImage.src = obj.image;
+                  imagePlaceholder.appendChild(animatedImage);
+                  video.remove();
+                  countdown.remove();
+                }
+              }
+            );
+          }, 5000);
+        })
+        .catch(function (error) {
+          console.log("Error", error);
+          console.log("Something went wrong!");
+        });
+    }
   });
 });
 

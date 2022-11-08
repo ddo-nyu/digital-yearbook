@@ -78,6 +78,7 @@ ul, li {
 }
 
 .class_photo {
+    position: relative;
     background: #eee;
     width: 100%;
     height: 150px;
@@ -87,6 +88,17 @@ ul, li {
     width: 100%;
     height: 150px;
     object-fit: cover;
+    filter: brightness(50%);
+}
+
+.countdown {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    font-size: xxx-large;
+    color: white;
 }
 
 .draggable_text {
