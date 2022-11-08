@@ -64,11 +64,11 @@ $(".toolbar_option").click((e) => {
   }
 });
 
-document.querySelectorAll(".class_photo").forEach((item) => {
-  item.addEventListener("click", () => {
+$(window).ready(function () {
+  $(".class_photo").click((e) => {
+    const item = e.currentTarget;
     console.log("clicked on an image", item.id);
-    let selector = "div#" + item.id;
-    let imagePlaceholder = document.querySelector(selector);
+    let imagePlaceholder = document.querySelector(`div#${item.id}`);
     const video = imagePlaceholder.querySelector("video");
     const countdown = imagePlaceholder.querySelector(".countdown");
 
