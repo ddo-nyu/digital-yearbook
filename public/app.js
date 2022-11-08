@@ -75,12 +75,12 @@ const saveGif = (id, dataUri) => {
     body: gifBody,
   }).then((data) => {
     if (data.status !== 200) {
-      console.log("something went wrong");
+      console.log("something went wrong with saving the gif");
     }
   });
 };
 
-$(window).ready(function () {
+$(window).ready(() => {
   $(".class_photo").click((e) => {
     const item = e.currentTarget;
     console.log("clicked on an image", item.id);
@@ -116,7 +116,7 @@ $(window).ready(function () {
               },
               function (obj) {
                 if (!obj.error) {
-                  var animatedImage = document.createElement("img");
+                  const animatedImage = document.createElement("img");
                   animatedImage.src = obj.image;
                   imagePlaceholder.appendChild(animatedImage);
                   video.remove();
@@ -135,46 +135,69 @@ $(window).ready(function () {
   });
 });
 
-$('.toolbar_option').click((e) => {
-    const optionType = $(e.currentTarget).attr('type');
-    switch (optionType) {
-        case 'add_text':
-            const id =  Math.random().toString(16).slice(2);
-            const newTextInput = $('<span class="draggable_text" contenteditable>New Text</span>')
-                // .on({
-                //     focus: function() {
-                //         if (!$(this).data('disabled')) this.blur()
-                //     },
-                //     focusout: function(){
-                //         const element = $(this);
-                //         if (!element.text().trim().length) {
-                //             element.empty();
-                //         }
-                //     },
-                //     click: function() {
-                //         $(this).preventDefault();
-                //     },
-                //     dblclick: function() {
-                //         $(this).data('disabled', true);
-                //         this.focus()
-                //     },
-                //     blur: function() {
-                //         $(this).data('disabled', false);
-                //     }
-                // })
-                .draggable({
-                    drag: function(e, ui) {
-                        socket.emit('place element', {
-                            id,
-                            text: $(ui.helper).text(),
-                            x: ui.position.left,
-                            y: ui.position.top
-                        });
-                    }
-                });
-            $('#yearbook').append(newTextInput);
-            break;
-        default:
-            break;
-    }
+const getAllGifs = () => {
+  fetch("/getAllGifs")
+    .then((response) => response.json())
+    .then((data) => {
+      data.data.forEach((element) => {
+        const elementSelector = `#${element.htmlId}`;
+        //show the image from the db
+        const img = $("<img>");
+        img.attr("src", element.dataUri);
+        img.appendTo(elementSelector);
+
+        //remove the video element
+        $(`${elementSelector} video`).remove();
+      });
+    });
+};
+
+$(window).ready(() => {
+  getAllGifs();
+});
+
+$(".toolbar_option").click((e) => {
+  const optionType = $(e.currentTarget).attr("type");
+  switch (optionType) {
+    case "add_text":
+      const id = Math.random().toString(16).slice(2);
+      const newTextInput = $(
+        '<span class="draggable_text" contenteditable>New Text</span>'
+      )
+        // .on({
+        //     focus: function() {
+        //         if (!$(this).data('disabled')) this.blur()
+        //     },
+        //     focusout: function(){
+        //         const element = $(this);
+        //         if (!element.text().trim().length) {
+        //             element.empty();
+        //         }
+        //     },
+        //     click: function() {
+        //         $(this).preventDefault();
+        //     },
+        //     dblclick: function() {
+        //         $(this).data('disabled', true);
+        //         this.focus()
+        //     },
+        //     blur: function() {
+        //         $(this).data('disabled', false);
+        //     }
+        // })
+        .draggable({
+          drag: function (e, ui) {
+            socket.emit("place element", {
+              id,
+              text: $(ui.helper).text(),
+              x: ui.position.left,
+              y: ui.position.top,
+            });
+          },
+        });
+      $("#yearbook").append(newTextInput);
+      break;
+    default:
+      break;
+  }
 });
