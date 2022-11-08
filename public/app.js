@@ -1,38 +1,24 @@
 const pageLayouts = [
     {
-        render: () => {
-            return `<h1>0</h1>`
-        },
-        callback: () => {
-
-        },
+        render: () => {},
+        callback: () => {},
     },
     {
-        render: () => {
-            return `<h1>1</h1>`
-        },
-        callback: () => {
-
-        },
+        render: () => {},
+        callback: () => {},
     },
     {
-        render: () => {
-            return `<h1>2</h1>`
-        },
-        callback: () => {
-
-        },
+        render: () => {},
+        callback: () => {},
     },
     {
         render: () => {
             return `<h1>Welcome to your digital yearbook!</h1>`;
         },
-        callback: () => {
-
-        },
+        callback: () => {},
     },
     {
-        render: () => { // page 4
+        render: () => {
             return `<div class="content">
                 <h1>Class of</h1>
                   <div class="class_photos">
@@ -152,20 +138,12 @@ const pageLayouts = [
         },
     },
     {
-        render: () => {
-            return `<h1>Welcome to your digital yearbook!</h1>`;
-        },
-        callback: () => {
-
-        },
+        render: () => {},
+        callback: () => {},
     },
     {
-        render: () => {
-            return `<h1>Welcome to your digital yearbook!</h1>`;
-        },
-        callback: () => {
-
-        },
+        render: () => {},
+        callback: () => {},
     },
 ];
 
