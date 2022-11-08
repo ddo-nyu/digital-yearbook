@@ -173,21 +173,29 @@ const pageLayouts = [
 const socket = io();
 socket.on('all elements', function (elements) {
     Object.values(elements).forEach((element) => {
-        const el = $(`#${element.id}`);
-        if ($('#yearbook').turn('view').toString() === element.pageView) {
-            if (el.length > 0) {
-                el
-                    .text(element.content)
-                    .css({top: element.top + 'px', left: element.left + 'px'});
-            } else {
-                const newEl = $(`<span id="${element.id}" class="emitted_text"></span>`)
-                    .text(element.content)
-                    .css({top: element.top + 'px', left: element.left + 'px'});
-                $('#droppable_area').append(newEl);
-            }
-        }
+        updateElement(element);
     });
 });
+
+socket.on('show element', function (element) {
+    updateElement(element);
+});
+
+function updateElement(element) {
+    const el = $(`#${element.id}`);
+    if ($('#yearbook').turn('view').toString() === element.pageView) {
+        if (el.length > 0) {
+            el
+                .text(element.content)
+                .css({top: element.top + 'px', left: element.left + 'px'});
+        } else {
+            const newEl = $(`<span id="${element.id}" class="emitted_text"></span>`)
+                .text(element.content)
+                .css({top: element.top + 'px', left: element.left + 'px'});
+            $('#droppable_area').append(newEl);
+        }
+    }
+}
 
 // init turnjs
 $(window).ready(function () {
@@ -208,15 +216,13 @@ $(window).ready(function () {
         when: {
             turned: function (e, page) {
                 const currentView = $('#yearbook').turn('view');
-                $('#droppable_area').append(pageLayouts[currentView[0]].render(), pageLayouts[currentView[1]].render());
+                $('#droppable_area .layout').append(pageLayouts[currentView[0]].render(), pageLayouts[currentView[1]].render());
                 pageLayouts[currentView[0]].callback();
                 pageLayouts[currentView[1]].callback();
                 socket.emit('get all elements');
             },
         },
     });
-    socket.emit('get all elements');
-
 });
 
 // events
@@ -260,6 +266,7 @@ $(window).ready(() => {
 $(window).bind("keydown", function (e) {
     if (e.keyCode === 37 || e.keyCode === 39) {
         $('#droppable_area').empty();
+        $('<div class="layout">').appendTo('#droppable_area');
 
         if (e.keyCode == 37) {
             $("#yearbook").turn("previous")
@@ -282,8 +289,23 @@ $('.toolbar_option[type="add_text"]').click((e) => {
                     top: ui.position.top
                 });
             },
+            stop: function (e, ui) {
+                socket.emit('update element', {
+                    id,
+                    pageView: $('#yearbook').turn('view').toString(),
+                    content: $(ui.helper).text(),
+                    left: ui.position.left,
+                    top: ui.position.top
+                });
+            },
         });
-
+    socket.emit('create element', {
+        id,
+        pageView: $('#yearbook').turn('view').toString(),
+        content: newTextInput.text(),
+        left: newTextInput.position().left,
+        top: newTextInput.position().top,
+    });
     $('#droppable_area').append(newTextInput);
 });
 

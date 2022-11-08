@@ -50,27 +50,39 @@ server.listen(port, () => {
 let io = require("socket.io");
 io = new io.Server(server);
 
-const elementsDB = {};
-
 //Listen for individual clients/users to connect
 io.on("connection", (socket) => {
   console.log("We have a new client: " + socket.id);
 
-  //Listen for messages from the client
-  socket.on('place element', (params) => { // for testing/example purposes
-    // elementsDB[params.id] = params;
+  socket.on('create element', (params) => {
+    db.find({ id: params.id }, (error, docs) => {
+      if (docs.length < 1) {
+        console.log('inserted:', docs);
+        const dbRecord = {
+          type: 'element',
+          ...params,
+        };
+        db.insert(dbRecord);
+      }
+    });
+  });
+
+  socket.on('place element', params => {
+    io.emit('show element', params);
+  });
+
+  socket.on('update element', (params) => {
     const dbRecord = {
       type: 'element',
       ...params,
     };
-    db.insert(dbRecord);
-
-    io.emit('show element', params);
-    io.emit('all elements', elementsDB);
+    db.update({ id: params.id }, { ...dbRecord }, {}, (error, docs) => {
+      console.log('updated:', dbRecord);
+    });
   });
 
   socket.on('get all elements', () => {
-    db.find({ type: 'gif' }, (error, docs) => {
+    db.find({ type: 'element' }, (error, docs) => {
       if (error) {
         console.log("Error", error);
         return;
