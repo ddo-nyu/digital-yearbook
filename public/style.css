@@ -162,6 +162,12 @@ ul, li {
     width:100%;
     height:100%;
     overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+#droppable_area .content {
+    padding: 2em;
 }
 
 .back_cover {

@@ -21,6 +21,7 @@ let port = process.env.PORT || 3002;
 
 app.post("/saveGif", (req, res) => {
   const dbRecord = {
+    type: 'gif',
     htmlId: req.body.id,
     dataUri: req.body.dataUri,
   };
@@ -31,7 +32,7 @@ app.post("/saveGif", (req, res) => {
 
 app.get("/getAllGifs", (req, res) => {
   console.log("getting all gifs");
-  db.find({}, (error, docs) => {
+  db.find({ type: 'gif' }, (error, docs) => {
     console.log("Error", error);
     // TODO: handle error
     const allGifs = { data: docs };
@@ -42,6 +43,7 @@ app.get("/getAllGifs", (req, res) => {
 server.listen(port, () => {
   console.log("Server listening at port: " + port);
 });
+
 /*-----Sockets------*/
 //Socket.io Code
 //Initialize socket.io
@@ -56,13 +58,26 @@ io.on("connection", (socket) => {
 
   //Listen for messages from the client
   socket.on('place element', (params) => { // for testing/example purposes
-    elementsDB[params.id] = params;
+    // elementsDB[params.id] = params;
+    const dbRecord = {
+      type: 'element',
+      ...params,
+    };
+    db.insert(dbRecord);
+
     io.emit('show element', params);
     io.emit('all elements', elementsDB);
   });
 
   socket.on('get all elements', () => {
-    io.emit('all elements', elementsDB);
+    db.find({ type: 'gif' }, (error, docs) => {
+      if (error) {
+        console.log("Error", error);
+        return;
+      }
+
+      io.emit('all elements', docs);
+    });
   })
 
   //Listen for this client to disconnect
