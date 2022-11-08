@@ -1,69 +1,49 @@
+// socket events
 const socket = io();
-
-socket.on('show element', function(params) {
-    console.log(params);
-    // if (params.text) {
-    //     const newText = $('<span class="emitted_text">').text(params.text)
-    //         .css({
-    //             top: params.x,
-    //             left: params.y,
-    //         });
-    //     $('#yearbook').append(newText);
-    // }
+socket.on('all elements', function (elements) {
+    Object.values(elements).forEach((element) => {
+        const el = $(`#${element.id}`);
+        if ($('#yearbook').turn('view').toString() === element.pageView) {
+            if (el.length > 0) {
+                el
+                    .text(element.content)
+                    .css({top: element.top + 'px', left: element.left + 'px'});
+            } else {
+                const newEl = $(`<span id="${element.id}" class="emitted_text"></span>`)
+                    .text(element.content)
+                    .css({top: element.top + 'px', left: element.left + 'px'});
+                $('#droppable_area').append(newEl);
+            }
+        }
+    });
 });
 
+// init turnjs
 $(window).ready(function () {
-  const pages = $("#yearbook .page");
-  pages.each((i, page) => {
-    if (i !== 0 && i !== pages.length - 1) {
-      $(page).append($('<div class="page_number">').text(i));
-    }
-    if (i % 2 === 0) {
-      $(page).addClass("right_page");
-    } else {
-      $(page).addClass("left_page");
-    }
-  });
-  $("#yearbook").turn({
-    display: "double",
-    acceleration: true,
-    gradients: !$.isTouch,
-    elevation: 50,
-    when: {
-      turned: function (e, page) {
-        /*console.log('Current view: ', $(this).turn('view'));*/
-      },
-    },
-  });
-});
-
-$(window).bind("keydown", function (e) {
-  if (e.keyCode == 37) $("#yearbook").turn("previous");
-  else if (e.keyCode == 39) $("#yearbook").turn("next");
-});
-
-$(".toolbar_option").click((e) => {
-  const optionType = $(e.currentTarget).attr("type");
-  switch (optionType) {
-    case "add_text":
-      $("#yearbook").append(
-        $('<span class="draggable_text">').text("new text")
-      );
-      $(".draggable_text").draggable({
-        drag: function (event, ui) {
-          console.log(`position: x=${ui.position.left} y=${ui.position.top}`);
-          // emit to socket here
+    const pages = $("#yearbook .page");
+    pages.each((i, page) => {
+        if (i !== 0 && i !== pages.length - 1) {
+            $(page).append($('<div class="page_number">').text(i));
+        }
+        $(page).addClass(i % 2 === 0 ? "right_page" : "left_page");
+        $(page).attr('index', i);
+    });
+    $("#yearbook").turn({
+        display: "double",
+        duration: 1000,
+        acceleration: true,
+        gradients: !$.isTouch,
+        elevation: 100,
+        when: {
+            turned: function (e, page) {
+                socket.emit('get all elements');
+            },
         },
-      });
-      $(".draggable_text").dblclick((e) => {
-        $(e.currentTarget).attr("contenteditable", true);
-      });
-      break;
-    default:
-      break;
-  }
+    });
+    socket.emit('get all elements');
 });
 
+// events
 const saveGif = (id, dataUri) => {
   const gifBody = JSON.stringify({
     id,
@@ -156,48 +136,34 @@ $(window).ready(() => {
   getAllGifs();
 });
 
-$(".toolbar_option").click((e) => {
-  const optionType = $(e.currentTarget).attr("type");
-  switch (optionType) {
-    case "add_text":
-      const id = Math.random().toString(16).slice(2);
-      const newTextInput = $(
-        '<span class="draggable_text" contenteditable>New Text</span>'
-      )
-        // .on({
-        //     focus: function() {
-        //         if (!$(this).data('disabled')) this.blur()
-        //     },
-        //     focusout: function(){
-        //         const element = $(this);
-        //         if (!element.text().trim().length) {
-        //             element.empty();
-        //         }
-        //     },
-        //     click: function() {
-        //         $(this).preventDefault();
-        //     },
-        //     dblclick: function() {
-        //         $(this).data('disabled', true);
-        //         this.focus()
-        //     },
-        //     blur: function() {
-        //         $(this).data('disabled', false);
-        //     }
-        // })
-        .draggable({
-          drag: function (e, ui) {
-            socket.emit("place element", {
-              id,
-              text: $(ui.helper).text(),
-              x: ui.position.left,
-              y: ui.position.top,
-            });
-          },
-        });
-      $("#yearbook").append(newTextInput);
-      break;
-    default:
-      break;
-  }
+$(window).bind("keydown", function (e) {
+    if (e.keyCode === 37 || e.keyCode === 39) {
+        $('#droppable_area').empty();
+
+        if (e.keyCode == 37) {
+            $("#yearbook").turn("previous")
+        }
+        else if (e.keyCode == 39) {
+            $("#yearbook").turn("next");
+        }
+    }
 });
+
+$('.toolbar_option[type="add_text"]').click((e) => {
+    const id = Math.random().toString(16).slice(2);
+    const newTextInput = $(`<span id="${id}" class="draggable_text" contenteditable="">New Text</span>`)
+        .draggable({
+            drag: function (e, ui) {
+                socket.emit('place element', {
+                    id,
+                    pageView: $('#yearbook').turn('view').toString(),
+                    content: $(ui.helper).text(),
+                    left: ui.position.left,
+                    top: ui.position.top
+                });
+            },
+        });
+
+    $('#droppable_area').append(newTextInput);
+});
+

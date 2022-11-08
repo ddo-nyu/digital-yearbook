@@ -10,7 +10,7 @@
 
     <script
       type="text/javascript"
-      src="http://code.jquery.com/jquery-1.7.1.min.js"
+      src="http://code.jquery.com/jquery-3.6.0.min.js"
     ></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
@@ -20,19 +20,23 @@
   <body>
     <div id="toolbar">
       <ul>
-        <li class="toolbar_option" type="add_text">Text</li>
+        <li class="toolbar_option" type="add_text"><img src="images/icons/text.png" /></li>
+        <li class="toolbar_option" type="add_sticker"><img src="images/icons/sticker.png" /></li>
+        <li class="toolbar_option" type="add_drawing"><img src="images/icons/pencil.png" /></li>
+
       </ul>
     </div>
+    <div id="droppable_area"></div>
     <div id="yearbook">
       <div class="page">
+        <img src="images/cover.png" alt="cover" class="yearbook_cover_img">
         <div class="content">
           <!-- Cover -->
-          <h1>IMA Low Res Yearbook 2022-2023</h1>
         </div>
       </div>
       <div class="page">
         <div class="content">
-          <h1>Page 1</h1>
+<!--          <h1>Page 1</h1>-->
         </div>
       </div>
       <div class="page">
@@ -156,7 +160,7 @@
       <div class="page">
         <div class="content"></div>
       </div>
-      <div class="page">
+      <div class="page back_cover">
         <div class="content">
           <!-- Back -->
         </div>

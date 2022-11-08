@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 html, body {
     height: 100%;
     width: 100%;
@@ -7,10 +8,11 @@ html, body {
 }
 body{
     font-family: sans-serif;
-    background:#ccc;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("images/background.jpg");
+    background-size: cover;
 }
 ul, li {
     list-style-type: none;
@@ -22,14 +24,28 @@ ul, li {
     position: fixed;
     z-index: 9;
     left: 0;
-    height: calc(100% - 4em);
     background: white;
     margin: 1em;
     border-radius: 10px;
-    padding: 1em 0.5em;
+    padding: 1em;
     box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
     -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
     -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+}
+
+#toolbar .toolbar_option {
+    margin: 1em 0;
+    cursor: pointer;
+}
+
+#toolbar .toolbar_option:hover img{
+    transform: scale(1.1);
+    transition: all ease-in 100ms;
+}
+
+#toolbar .toolbar_option img {
+    width: 2em;
+    height: 2em;
 }
 
 #yearbook{
@@ -44,6 +60,10 @@ ul, li {
 }
 #yearbook .page {
     background: white;
+}
+
+#yearbook .page .content h1 {
+    text-align: center;
 }
 
 #yearbook .page.left_page {
@@ -68,6 +88,18 @@ ul, li {
 
 #yearbook .page .content {
     padding: 20px;
+    height: calc(100% - 40px);
+}
+
+#yearbook .page .content * {
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+.yearbook_cover_img {
+    width: 100%;
+    height: 100%;
 }
 
 .class_photos {
@@ -101,12 +133,37 @@ ul, li {
     color: white;
 }
 
+.draggable_text,
+.emitted_text {
+    font-family: 'Permanent Marker', cursive;
+    font-size: 2em;
+}
+
 .draggable_text {
     z-index: 10;
-    background: transparent;
-    border: none;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
 }
 
 .emitted_text {
     position: absolute;
+    z-index: 100;
+    -webkit-user-select: none; /* Safari */
+    -ms-user-select: none; /* IE 10 and IE 11 */
+    user-select: none; /* Standard syntax */
+}
+
+#droppable_area {
+    z-index: 9;
+    position: fixed;
+    max-width:1152px;
+    max-height:752px;
+    width:100%;
+    height:100%;
+    overflow: hidden;
+}
+
+.back_cover {
+    background: #845540 !important;
 }

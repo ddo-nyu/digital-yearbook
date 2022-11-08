@@ -53,15 +53,17 @@ const elementsDB = {};
 //Listen for individual clients/users to connect
 io.on("connection", (socket) => {
   console.log("We have a new client: " + socket.id);
-  // Object.values(elementsDB).forEach((obj) => {
-  //   io.emit('show element', obj);
-  // });
 
   //Listen for messages from the client
   socket.on('place element', (params) => { // for testing/example purposes
     elementsDB[params.id] = params;
     io.emit('show element', params);
+    io.emit('all elements', elementsDB);
   });
+
+  socket.on('get all elements', () => {
+    io.emit('all elements', elementsDB);
+  })
 
   //Listen for this client to disconnect
   socket.on("disconnect", () => {
