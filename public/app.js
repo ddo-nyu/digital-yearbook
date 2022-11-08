@@ -64,6 +64,22 @@ $(".toolbar_option").click((e) => {
   }
 });
 
+const saveGif = (id, dataUri) => {
+  const gifBody = JSON.stringify({
+    id,
+    dataUri,
+  });
+  fetch("/saveGif", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: gifBody,
+  }).then((data) => {
+    if (data.status !== 200) {
+      console.log("something went wrong");
+    }
+  });
+};
+
 $(window).ready(function () {
   $(".class_photo").click((e) => {
     const item = e.currentTarget;
@@ -105,6 +121,7 @@ $(window).ready(function () {
                   imagePlaceholder.appendChild(animatedImage);
                   video.remove();
                   countdown.remove();
+                  saveGif(item.id, obj.image);
                 }
               }
             );
