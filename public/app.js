@@ -305,6 +305,12 @@ socket.on('show gif', (gif) => {
     addGif(gif);
 });
 
+socket.on('received image placeholder in use', (placeholderId) => {
+    console.log('imageplaceholder', placeholderId);
+    const imagePlaceholder = document.querySelector(placeholderId);
+    imagePlaceholderInUse(imagePlaceholder);
+});
+
 const addGif = (gif) => {
     const gifSelector = `#${gif.htmlId}`;
 
@@ -466,6 +472,11 @@ const makeCameraSpin = (imagePlaceholder) => {
     cameraIcon.className = 'spin';
 };
 
+const imagePlaceholderInUse = (imagePlaceholder) => {
+    disableImagePlaceholderClicks(imagePlaceholder);
+    makeCameraSpin(imagePlaceholder);
+};
+
 const addClassPhotoClickEvents = (classSelector) => {
     $(`.${classSelector}`).click((e) => {
         const item = e.currentTarget;
@@ -475,8 +486,8 @@ const addClassPhotoClickEvents = (classSelector) => {
             const imagePlaceholder = document.querySelector(`#${item.id}`);
             const video = imagePlaceholder.querySelector('video');
             const countdown = imagePlaceholder.querySelector('.countdown');
-            disableImagePlaceholderClicks(imagePlaceholder);
-            makeCameraSpin(imagePlaceholder);
+            imagePlaceholderInUse(imagePlaceholder);
+            socket.emit('image placeholder in use', `#${item.id}`);
 
             if (navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices
