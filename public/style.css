@@ -144,6 +144,10 @@ ul, li {
     100% { transform: rotate(360deg); }
   }
 
+.avoid_clicks {
+	pointer-events: none;
+}
+
 .countdown {
     position: absolute;
     top: 50%;

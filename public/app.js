@@ -457,6 +457,15 @@ $('.toolbar_option[type="add_sticker"] .stickers_wrapper .sticker').click(
     }
 );
 
+const disableImagePlaceholderClicks = (imagePlaceholder) => {
+    imagePlaceholder.className = `${imagePlaceholder.className} avoid_clicks`;
+};
+
+const makeCameraSpin = (imagePlaceholder) => {
+    const cameraIcon = imagePlaceholder.querySelector('.icon img');
+    cameraIcon.className = 'spin';
+};
+
 const addClassPhotoClickEvents = (classSelector) => {
     $(`.${classSelector}`).click((e) => {
         const item = e.currentTarget;
@@ -466,9 +475,8 @@ const addClassPhotoClickEvents = (classSelector) => {
             const imagePlaceholder = document.querySelector(`#${item.id}`);
             const video = imagePlaceholder.querySelector('video');
             const countdown = imagePlaceholder.querySelector('.countdown');
-            const cameraIcon = imagePlaceholder.querySelector('.icon img');
-            console.log(cameraIcon);
-            cameraIcon.className = 'spin';
+            disableImagePlaceholderClicks(imagePlaceholder);
+            makeCameraSpin(imagePlaceholder);
 
             if (navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices
