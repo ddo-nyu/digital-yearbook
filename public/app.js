@@ -182,6 +182,10 @@ socket.on("all gifs", (gifs) => {
   });
 });
 
+socket.on("show gif", (gif) => {
+    addGif(gif)
+})
+
 const addGif = (gif) => {
   const gifSelector = `#${gif.htmlId}`;
 
@@ -228,20 +232,11 @@ $(window).ready(function () {
 });
 
 // events
-const saveGif = (id, dataUri) => {
-    const gifBody = JSON.stringify({
-        id,
+const saveGif = (htmlId, dataUri) => {
+    socket.emit("save gif", {
+        htmlId,
         dataUri,
-    });
-    fetch("/saveGif", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: gifBody,
-    }).then((data) => {
-        if (data.status !== 200) {
-            console.log("something went wrong with saving the gif");
-        }
-    });
+    })
 };
 
 $(window).bind("keydown", function (e) {

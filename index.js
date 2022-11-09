@@ -19,17 +19,6 @@ let server = http.createServer(app);
 //'port' variable allowd for deployment
 let port = process.env.PORT || 3002;
 
-app.post("/saveGif", (req, res) => {
-  const dbRecord = {
-    type: 'gif',
-    htmlId: req.body.id,
-    dataUri: req.body.dataUri,
-  };
-  // TODO: handle invalid requests
-  db.insert(dbRecord);
-  res.send({ success: true, message: "gif saved" });
-});
-
 server.listen(port, () => {
   console.log("Server listening at port: " + port);
 });
@@ -80,6 +69,15 @@ io.on("connection", (socket) => {
 
       io.emit('all elements', docs);
     });
+  })
+
+  socket.on("save gif", (params) => {
+    const dbRecord = {
+      type: 'gif',
+      ...params,
+    };
+    db.insert(dbRecord);
+    io.emit("show gif", params)
   })
 
   socket.on("get all gifs", () => {
