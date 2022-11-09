@@ -23,50 +23,62 @@ const pageLayouts = [
                 <h1>Class of</h1>
                   <div class="class_photos">
                     <div id="class_photo_1" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_2" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_3" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_4" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_5" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_6" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_7" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_8" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_9" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_10" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_11" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_12" class="class_photo left_page">
+                      <img class="icon" src="images/icons/camera.png" />
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
@@ -83,50 +95,62 @@ const pageLayouts = [
               <h1>2023</h1>
               <div class="class_photos">
                 <div id="class_photo_13" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_14" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_15" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_16" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_17" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_18" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_19" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_20" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_21" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_22" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_23" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_24" class="class_photo right_page">
+                  <img class="icon" src="images/icons/camera.png" />
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
@@ -190,15 +214,17 @@ socket.on("show gif", (gif) => {
 const addGif = (gif) => {
   const gifSelector = `#${gif.htmlId}`;
 
-  // if the gif placeholder doesn't already have an image:
+  // if the gif placeholder doesn't already have a gif image:
   // * add the image
   // * remove the video element
-  if ($(`${gifSelector} img`).length === 0) {
+  if ($(`${gifSelector} img.gif`).length === 0) {
     //show the image from the db
     const img = $("<img>");
+    img.attr("class", "gif");
     img.attr("src", gif.dataUri);
     img.appendTo(gifSelector);
 
+    $(`${gifSelector} img.icon`).remove();
     $(`${gifSelector} video`).remove();
   }
 };
@@ -294,7 +320,7 @@ const addClassPhotoClickEvents = (classSelector) => {
   $(`.${classSelector}`).click((e) => {
     const item = e.currentTarget;
     // only allow a new image to be added if the item doesn't already have an image
-    if ($(item).find("img").length === 0) {
+    if ($(item).find("img.gif").length === 0) {
       console.log("clicked on an image", item.id);
       const imagePlaceholder = document.querySelector(`#${item.id}`);
       const video = imagePlaceholder.querySelector("video");
@@ -330,10 +356,12 @@ const addClassPhotoClickEvents = (classSelector) => {
                 function (obj) {
                   if (!obj.error) {
                     const animatedImage = document.createElement("img");
+                    animatedImage.className = "gif";
                     animatedImage.src = obj.image;
                     imagePlaceholder.appendChild(animatedImage);
                     video.remove();
                     countdown.remove();
+                    $(`#${item.id} img.icon`).remove();
                     saveGif(item.id, obj.image);
                   }
                 }

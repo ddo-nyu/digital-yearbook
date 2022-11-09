@@ -122,6 +122,15 @@ ul, li {
     object-fit: cover;
     filter: brightness(50%);
 }
+  
+.class_photo img.icon{
+  width: 4em;
+  height: 4em;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 
 .countdown {
     position: absolute;
@@ -214,4 +223,3 @@ ul, li {
       transform: rotate(1800deg);
     }
   }
-  
