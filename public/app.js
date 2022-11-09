@@ -293,54 +293,57 @@ $('.toolbar_option[type="add_text"]').click((e) => {
 function addClassPhotoClickEvents(classSelector) {
   $(`.${classSelector}`).click((e) => {
     const item = e.currentTarget;
-    console.log("clicked on an image", item.id);
-    let imagePlaceholder = document.querySelector(`div#${item.id}`);
-    const video = imagePlaceholder.querySelector("video");
-    const countdown = imagePlaceholder.querySelector(".countdown");
+    // only allow a new image to be added if the item doesn't already have an image
+    if ($(item).find("img").length === 0) {
+      console.log("clicked on an image", item.id);
+      let imagePlaceholder = document.querySelector(`div#${item.id}`);
+      const video = imagePlaceholder.querySelector("video");
+      const countdown = imagePlaceholder.querySelector(".countdown");
 
-    if (navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(function (stream) {
-          video.srcObject = stream;
-          return stream;
-        })
-        .then((stream) => {
-          var timeleft = 5;
-          var timer = setInterval(function () {
-            if (timeleft <= 0) {
-              clearInterval(timer);
-            } else {
-              countdown.innerHTML = timeleft;
-            }
-            timeleft -= 1;
-          }, 1000);
-
-          setTimeout(() => {
-            console.log("creating the gif");
-            gifshot.createGIF(
-              {
-                cameraStream: stream,
-                gifWidth: imagePlaceholder.clientWidth,
-                gifHeight: imagePlaceholder.clientHeight,
-              },
-              function (obj) {
-                if (!obj.error) {
-                  const animatedImage = document.createElement("img");
-                  animatedImage.src = obj.image;
-                  imagePlaceholder.appendChild(animatedImage);
-                  video.remove();
-                  countdown.remove();
-                  saveGif(item.id, obj.image);
-                }
+      if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices
+          .getUserMedia({ video: true })
+          .then(function (stream) {
+            video.srcObject = stream;
+            return stream;
+          })
+          .then((stream) => {
+            var timeleft = 5;
+            var timer = setInterval(function () {
+              if (timeleft <= 0) {
+                clearInterval(timer);
+              } else {
+                countdown.innerHTML = timeleft;
               }
-            );
-          }, 5000);
-        })
-        .catch(function (error) {
-          console.log("Error", error);
-          console.log("Something went wrong!");
-        });
+              timeleft -= 1;
+            }, 1000);
+
+            setTimeout(() => {
+              console.log("creating the gif");
+              gifshot.createGIF(
+                {
+                  cameraStream: stream,
+                  gifWidth: imagePlaceholder.clientWidth,
+                  gifHeight: imagePlaceholder.clientHeight,
+                },
+                function (obj) {
+                  if (!obj.error) {
+                    const animatedImage = document.createElement("img");
+                    animatedImage.src = obj.image;
+                    imagePlaceholder.appendChild(animatedImage);
+                    video.remove();
+                    countdown.remove();
+                    saveGif(item.id, obj.image);
+                  }
+                }
+              );
+            }, 5000);
+          })
+          .catch(function (error) {
+            console.log("Error", error);
+            console.log("Something went wrong!");
+          });
+      }
     }
   });
 }
