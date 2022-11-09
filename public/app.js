@@ -375,17 +375,14 @@ const saveGif = (htmlId, dataUri) => {
     });
 };
 
-$(window).bind('keydown', function (e) {
-    if (e.keyCode === 37 || e.keyCode === 39) {
-        $('#droppable_area').empty();
-        $('<div class="layout">').appendTo('#droppable_area');
+$('.page_button.left').click(function (e) {
+    $('#droppable_area').empty();
+    $('#yearbook').turn('previous');
+});
 
-        if (e.keyCode == 37) {
-            $('#yearbook').turn('previous');
-        } else if (e.keyCode == 39) {
-            $('#yearbook').turn('next');
-        }
-    }
+$('.page_button.right').click(function (e) {
+    $('#droppable_area').empty();
+    $('#yearbook').turn('next');
 });
 
 $('.toolbar_option[type="add_text"]').click((e) => {
@@ -515,6 +512,15 @@ $('.toolbar_option[type="add_sticker"] .stickers_wrapper .sticker').click(
             top: newSticker.position().top,
         });
         $('.stickers_wrapper').toggle();
+
+        const pageView = $("#yearbook").turn("view").toString();
+        if(createdElements[pageView]) {
+            createdElements[pageView][id] = newSticker;
+        } else {
+            createdElements[pageView] = {
+                [id]: newSticker
+            };
+        }
     }
 );
 
@@ -552,7 +558,7 @@ const addClassPhotoClickEvents = (classSelector) => {
                         return stream;
                     })
                     .then((stream) => {
-                        var timeleft = 5;
+                        var timeleft = 3;
                         var timer = setInterval(function () {
                             if (timeleft <= 0) {
                                 clearInterval(timer);
@@ -586,7 +592,7 @@ const addClassPhotoClickEvents = (classSelector) => {
                                     }
                                 }
                             );
-                        }, 5000);
+                        }, 3000);
                     })
                     .catch(function (error) {
                         console.log('Error', error);
