@@ -376,12 +376,12 @@ const saveGif = (htmlId, dataUri) => {
 };
 
 $('.page_button.left').click(function (e) {
-    $('#droppable_area').empty();
+    $('#droppable_area').empty().append($('<div class="layout">'));
     $('#yearbook').turn('previous');
 });
 
 $('.page_button.right').click(function (e) {
-    $('#droppable_area').empty();
+    $('#droppable_area').empty().append($('<div class="layout">'));
     $('#yearbook').turn('next');
 });
 
