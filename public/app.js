@@ -1,25 +1,37 @@
 const pageLayouts = [
-  {
-    render: () => {},
-    callback: () => {},
-  },
-  {
-    render: () => {},
-    callback: () => {},
-  },
-  {
-    render: () => {},
-    callback: () => {},
-  },
-  {
-    render: () => {
-      return `<h1>Welcome to your digital yearbook!</h1>`;
+    {
+        render: () => {
+            return `<div class="content"></div>`;
+        },
+        callback: () => {
+        },
     },
-    callback: () => {},
-  },
-  {
-    render: () => {
-      return `<div class="content">
+    { // cover
+        render: () => {
+            return `<div class="content"></div>`;
+        },
+        callback: () => {
+        },
+    },
+    { // page 1
+        render: () => {
+            return `<div class="content"></div>`;
+        },
+        callback: () => {
+        },
+    },
+    { // page 2
+        render: () => {
+            return `<div class="content">
+                <h1>Welcome to your digital yearbook!</h1>
+            </div>`;
+        },
+        callback: () => {
+        },
+    },
+    { // page 3
+        render: () => {
+            return `<div class="content">
                 <h1>Class of</h1>
                   <div class="class_photos">
                     <div id="class_photo_1" class="class_photo left_page">
@@ -84,14 +96,14 @@ const pageLayouts = [
                     </div>
                   </div>
                 </div>`;
+        },
+        callback: () => {
+            addClassPhotoClickEvents("left_page");
+        },
     },
-    callback: () => {
-      addClassPhotoClickEvents("left_page");
-    },
-  },
-  {
-    render: () => {
-      return `<div class="content">
+    { // page 4
+        render: () => {
+            return `<div class="content">
               <h1>2023</h1>
               <div class="class_photos">
                 <div id="class_photo_13" class="class_photo right_page">
@@ -156,63 +168,91 @@ const pageLayouts = [
                 </div>
               </div>
             </div>`;
+        },
+        callback: () => {
+            addClassPhotoClickEvents("right_page");
+        },
     },
-    callback: () => {
-      addClassPhotoClickEvents("right_page");
+    {
+        render: () => {
+        },
+        callback: () => {
+        },
     },
-  },
-  {
-    render: () => {},
-    callback: () => {},
-  },
-  {
-    render: () => {},
-    callback: () => {},
-  },
+    {
+        render: () => {
+        },
+        callback: () => {
+        },
+    },
 ];
 
 // socket events
 const socket = io();
 socket.on("all elements", function (elements) {
-  Object.values(elements).forEach((element) => {
-    updateElement(element);
-  });
+    Object.values(elements).forEach((element) => {
+        updateElement(element);
+    });
 });
 
 socket.on("show element", function (element) {
-  updateElement(element);
+    updateElement(element);
 });
 
 function updateElement(element) {
-  const el = $(`#${element.id}`);
-  if ($("#yearbook").turn("view").toString() === element.pageView) {
-    if (el.length > 0) {
-      el.text(element.content).css({
-        top: element.top + "px",
-        left: element.left + "px",
-      });
-    } else {
-      const newEl = $(`<span id="${element.id}" class="emitted_text"></span>`)
-        .text(element.content)
-        .css({ top: element.top + "px", left: element.left + "px" });
-      $("#droppable_area").append(newEl);
+    const el = $(`#${element.id}`);
+    const type = element.element_type;
+    if ($("#yearbook").turn("view").toString() === element.pageView) {
+        if (el.length > 0) {
+            switch(type) {
+                case 'text':
+                    el.text(element.content).css({
+                        top: element.top + "px",
+                        left: element.left + "px",
+                    });
+                    break;
+                case 'sticker':
+                default:
+                    el.css({
+                        top: element.top + "px",
+                        left: element.left + "px",
+                    });
+                    break;
+            }
+        } else {
+            let newEl;
+            switch(type) {
+                case 'text':
+                    newEl = $(`<span id="${element.id}" class="emitted_text"></span>`)
+                        .text(element.content)
+                        .css({top: element.top + "px", left: element.left + "px"});
+                    break;
+                case 'sticker':
+                    newEl = $(`<img id="${element.id}" src="images/stickers/${element.content}.gif" alt="${element.content}" class="sticker" />`)
+                        .css({top: element.top + "px", left: element.left + "px"});
+                    break;
+                default:
+                    break;
+            }
+
+            $("#droppable_area").append(newEl);
+        }
     }
-  }
 }
 
 socket.on("all gifs", (gifs) => {
-  console.log("got the gifs", gifs);
-  Object.values(gifs).forEach((gif) => {
-    addGif(gif);
-  });
+    console.log("got the gifs", gifs);
+    Object.values(gifs).forEach((gif) => {
+        addGif(gif);
+    });
 });
 
 socket.on("show gif", (gif) => {
-  addGif(gif);
+    addGif(gif);
 });
 
 const addGif = (gif) => {
-  const gifSelector = `#${gif.htmlId}`;
+    const gifSelector = `#${gif.htmlId}`;
 
   // if the gif placeholder doesn't already have a gif image:
   // * add the image
@@ -231,89 +271,134 @@ const addGif = (gif) => {
 
 // init turnjs
 $(window).ready(function () {
-  const pages = $("#yearbook .page");
-  pages.each((i, page) => {
-    if (i !== 0 && i !== pages.length - 1) {
-      $(page).append($('<div class="page_number">').text(i));
-    }
-    $(page).addClass(i % 2 === 0 ? "right_page" : "left_page");
-    $(page).attr("index", i);
-  });
-  $("#yearbook").turn({
-    display: "double",
-    duration: 1000,
-    acceleration: true,
-    gradients: !$.isTouch,
-    elevation: 100,
-    when: {
-      turned: function (e, page) {
-        const currentView = $("#yearbook").turn("view");
-        $("#droppable_area .layout").append(
-          pageLayouts[currentView[0]].render(),
-          pageLayouts[currentView[1]].render()
-        );
-        pageLayouts[currentView[0]].callback();
-        pageLayouts[currentView[1]].callback();
-        socket.emit("get all elements");
-        socket.emit("get all gifs"); // FIXME: this should probalby only emitted for pages 3 and 4
-      },
-    },
-  });
+    const pages = $("#yearbook .page");
+    pages.each((i, page) => {
+        if (i !== 0 && i !== pages.length - 1) {
+            $(page).append($('<div class="page_number">').text(i));
+        }
+        $(page).addClass(i % 2 === 0 ? "right_page" : "left_page");
+        $(page).attr("index", i);
+    });
+    $("#yearbook").turn({
+        display: "double",
+        duration: 1000,
+        acceleration: true,
+        gradients: !$.isTouch,
+        elevation: 100,
+        when: {
+            turned: function (e, page) {
+                const currentView = $("#yearbook").turn("view");
+                $("#droppable_area .layout").append(
+                    pageLayouts[currentView[0]].render(),
+                    pageLayouts[currentView[1]].render()
+                );
+                pageLayouts[currentView[0]].callback();
+                pageLayouts[currentView[1]].callback();
+                socket.emit("get all elements");
+                socket.emit("get all gifs"); // FIXME: this should probalby only emitted for pages 3 and 4
+            },
+        },
+    });
 });
 
 // events
 const saveGif = (htmlId, dataUri) => {
-  socket.emit("save gif", {
-    htmlId,
-    dataUri,
-  });
+    socket.emit("save gif", {
+        htmlId,
+        dataUri,
+    });
 };
 
 $(window).bind("keydown", function (e) {
-  if (e.keyCode === 37 || e.keyCode === 39) {
-    $("#droppable_area").empty();
-    $('<div class="layout">').appendTo("#droppable_area");
+    if (e.keyCode === 37 || e.keyCode === 39) {
+        $("#droppable_area").empty();
+        $('<div class="layout">').appendTo("#droppable_area");
 
-    if (e.keyCode == 37) {
-      $("#yearbook").turn("previous");
-    } else if (e.keyCode == 39) {
-      $("#yearbook").turn("next");
+        if (e.keyCode == 37) {
+            $("#yearbook").turn("previous");
+        } else if (e.keyCode == 39) {
+            $("#yearbook").turn("next");
+        }
     }
-  }
 });
 
 $('.toolbar_option[type="add_text"]').click((e) => {
-  const id = Math.random().toString(16).slice(2);
-  const newTextInput = $(
-    `<span id="${id}" class="draggable_text" contenteditable="">New Text</span>`
-  ).draggable({
-    drag: function (e, ui) {
-      socket.emit("place element", {
+    const id = Math.random().toString(16).slice(2);
+    const newTextInput = $(
+        `<span id="${id}" class="draggable_text" contenteditable="">New Text</span>`
+    ).draggable({
+        drag: function (e, ui) {
+            socket.emit("place element", {
+                id,
+                pageView: $("#yearbook").turn("view").toString(),
+                element_type: 'text',
+                content: $(ui.helper).text(),
+                left: ui.position.left,
+                top: ui.position.top,
+            });
+        },
+        stop: function (e, ui) {
+            socket.emit("update element", {
+                id,
+                pageView: $("#yearbook").turn("view").toString(),
+                element_type: 'text',
+                content: $(ui.helper).text(),
+                left: ui.position.left,
+                top: ui.position.top,
+            });
+        },
+    });
+    socket.emit("create element", {
         id,
         pageView: $("#yearbook").turn("view").toString(),
-        content: $(ui.helper).text(),
-        left: ui.position.left,
-        top: ui.position.top,
-      });
-    },
-    stop: function (e, ui) {
-      socket.emit("update element", {
+        element_type: 'text',
+        content: newTextInput.text(),
+        left: newTextInput.position().left,
+        top: newTextInput.position().top,
+    });
+    $("#droppable_area").append(newTextInput);
+});
+
+$('.toolbar_option[type="add_sticker"] > img').click((e) => {
+    $('.stickers_wrapper').toggle();
+});
+
+$('.toolbar_option[type="add_sticker"] .stickers_wrapper .sticker').click((e) => {
+    const id = Math.random().toString(16).slice(2);
+    const newSticker = $(e.currentTarget).clone().attr('id', id);
+    newSticker
+        .draggable({
+            drag: function (e, ui) {
+                socket.emit("place element", {
+                    id,
+                    pageView: $("#yearbook").turn("view").toString(),
+                    element_type: 'sticker',
+                    content: $(ui.helper).attr('name'),
+                    left: ui.position.left,
+                    top: ui.position.top,
+                });
+            },
+            stop: function (e, ui) {
+                socket.emit("update element", {
+                    id,
+                    pageView: $("#yearbook").turn("view").toString(),
+                    element_type: 'sticker',
+                    content: $(ui.helper).attr('name'),
+                    left: ui.position.left,
+                    top: ui.position.top,
+                });
+            },
+        })
+        .appendTo('#droppable_area');
+    socket.emit("create element", {
         id,
         pageView: $("#yearbook").turn("view").toString(),
-        content: $(ui.helper).text(),
-        left: ui.position.left,
-        top: ui.position.top,
-      });
-    },
-  });
-  socket.emit("create element", {
-    id,
-    pageView: $("#yearbook").turn("view").toString(),
-    content: newTextInput.text(),
-    left: newTextInput.position().left,
-    top: newTextInput.position().top,
-  });
-  $("#droppable_area").append(newTextInput);
+        element_type: 'sticker',
+        content: newSticker.attr('name'),
+        left: newSticker.position().left,
+        top: newSticker.position().top,
+    });
+    $('.stickers_wrapper').toggle();
 });
 
 const addClassPhotoClickEvents = (classSelector) => {
@@ -327,23 +412,23 @@ const addClassPhotoClickEvents = (classSelector) => {
       const countdown = imagePlaceholder.querySelector(".countdown");
       countdown.innerHTML = `<div class="lds-hourglass"></div>`;
 
-      if (navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices
-          .getUserMedia({ video: true })
-          .then(function (stream) {
-            video.srcObject = stream;
-            return stream;
-          })
-          .then((stream) => {
-            var timeleft = 5;
-            var timer = setInterval(function () {
-              if (timeleft <= 0) {
-                clearInterval(timer);
-              } else {
-                countdown.innerHTML = timeleft;
-              }
-              timeleft -= 1;
-            }, 1000);
+            if (navigator.mediaDevices.getUserMedia) {
+                navigator.mediaDevices
+                    .getUserMedia({video: true})
+                    .then(function (stream) {
+                        video.srcObject = stream;
+                        return stream;
+                    })
+                    .then((stream) => {
+                        var timeleft = 5;
+                        var timer = setInterval(function () {
+                            if (timeleft <= 0) {
+                                clearInterval(timer);
+                            } else {
+                                countdown.innerHTML = timeleft;
+                            }
+                            timeleft -= 1;
+                        }, 1000);
 
             setTimeout(() => {
               console.log("creating the gif");

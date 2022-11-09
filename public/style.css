@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
 html, body {
     height: 100%;
     width: 100%;
@@ -6,7 +7,8 @@ html, body {
     padding: 0;
     overflow: hidden;
 }
-body{
+
+body {
     font-family: sans-serif;
     display: flex;
     justify-content: center;
@@ -14,6 +16,7 @@ body{
     background-image: url("images/background.jpg");
     background-size: cover;
 }
+
 ul, li {
     list-style-type: none;
     margin: 0;
@@ -22,15 +25,15 @@ ul, li {
 
 #toolbar {
     position: fixed;
-    z-index: 9;
+    z-index: 20;
     left: 0;
     background: white;
     margin: 1em;
     border-radius: 10px;
     padding: 1em;
-    box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
-    -webkit-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.1);
+    box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    -webkit-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
 }
 
 #toolbar .toolbar_option {
@@ -38,32 +41,30 @@ ul, li {
     cursor: pointer;
 }
 
-#toolbar .toolbar_option:hover img{
+#toolbar .toolbar_option:hover img {
     transform: scale(1.1);
     transition: all ease-in 100ms;
 }
 
-#toolbar .toolbar_option img {
+#toolbar .toolbar_option > img {
     width: 2em;
     height: 2em;
 }
 
-#yearbook{
-    max-width:1152px;
-    max-height:752px;
-    width:100%;
-    height:100%;
-}
-#yearbook .turn-page{
-    background-color:#ccc;
-    background-size:100% 100%;
-}
-#yearbook .page {
-    background: white;
+#yearbook {
+    max-width: 1152px;
+    max-height: 752px;
+    width: 100%;
+    height: 100%;
 }
 
-#yearbook .page .content h1 {
-    text-align: center;
+#yearbook .turn-page {
+    background-color: #ccc;
+    background-size: 100% 100%;
+}
+
+#yearbook .page {
+    background: white;
 }
 
 #yearbook .page.left_page {
@@ -122,14 +123,14 @@ ul, li {
     object-fit: cover;
     filter: brightness(50%);
 }
-  
-.class_photo img.icon{
-  width: 4em;
-  height: 4em;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+.class_photo img.icon {
+    width: 2em;
+    height: 2em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .countdown {
@@ -166,10 +167,10 @@ ul, li {
 #droppable_area {
     z-index: 9;
     position: fixed;
-    max-width:1152px;
-    max-height:752px;
-    width:100%;
-    height:100%;
+    max-width: 1152px;
+    max-height: 752px;
+    width: 100%;
+    height: 100%;
     overflow: hidden;
 }
 
@@ -187,8 +188,44 @@ ul, li {
     padding: 2em;
 }
 
+#droppable_area .layout .content h1 {
+    text-align: center;
+}
+
+#droppable_area .sticker {
+    position: absolute;
+}
+
 .back_cover {
     background: #845540 !important;
+}
+
+.toolbar_option[type="add_sticker"] {
+    position: relative;
+}
+
+.stickers_wrapper {
+    position: absolute;
+    left: calc(100% + 1.5em);
+    background: #eee;
+    padding: 2em;
+    border-radius: 0.5em;
+    top: -200%;
+    display: none;
+}
+
+.stickers_wrapper .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+
+.stickers_wrapper h3 {
+    margin: 0;
+}
+
+.sticker {
+    width: 5em;
+    cursor: pointer;
 }
 
 /* https://loading.io/css/ */
@@ -197,8 +234,9 @@ ul, li {
     position: relative;
     width: 80px;
     height: 80px;
-  }
-  .lds-hourglass:after {
+}
+
+.lds-hourglass:after {
     content: " ";
     display: block;
     border-radius: 50%;
@@ -209,17 +247,18 @@ ul, li {
     border: 32px solid #fff;
     border-color: #fff transparent #fff transparent;
     animation: lds-hourglass 1.2s infinite;
-  }
-  @keyframes lds-hourglass {
+}
+
+@keyframes lds-hourglass {
     0% {
-      transform: rotate(0);
-      animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
+        transform: rotate(0);
+        animation-timing-function: cubic-bezier(0.55, 0.055, 0.675, 0.19);
     }
     50% {
-      transform: rotate(900deg);
-      animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+        transform: rotate(900deg);
+        animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
     }
     100% {
-      transform: rotate(1800deg);
+        transform: rotate(1800deg);
     }
-  }
+}
