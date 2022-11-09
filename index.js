@@ -19,27 +19,6 @@ let server = http.createServer(app);
 //'port' variable allowd for deployment
 let port = process.env.PORT || 3002;
 
-app.post("/saveGif", (req, res) => {
-  const dbRecord = {
-    type: 'gif',
-    htmlId: req.body.id,
-    dataUri: req.body.dataUri,
-  };
-  // TODO: handle invalid requests
-  db.insert(dbRecord);
-  res.send({ success: true, message: "gif saved" });
-});
-
-app.get("/getAllGifs", (req, res) => {
-  console.log("getting all gifs");
-  db.find({ type: 'gif' }, (error, docs) => {
-    console.log("Error", error);
-    // TODO: handle error
-    const allGifs = { data: docs };
-    res.json(allGifs);
-  });
-});
-
 server.listen(port, () => {
   console.log("Server listening at port: " + port);
 });
@@ -90,6 +69,26 @@ io.on("connection", (socket) => {
 
       io.emit('all elements', docs);
     });
+  })
+
+  socket.on("save gif", (params) => {
+    const dbRecord = {
+      type: 'gif',
+      ...params,
+    };
+    db.insert(dbRecord);
+    io.emit("show gif", params)
+  })
+
+  socket.on("get all gifs", () => {
+    db.find({type: "gif"}, (error, docs) => {
+      if (error) {
+        console.log("Error", error);
+        return;
+      }
+
+      io.emit('all gifs', docs);
+    })
   })
 
   //Listen for this client to disconnect
