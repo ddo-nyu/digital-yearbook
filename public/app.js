@@ -22,8 +22,13 @@ const pageLayouts = [
     {
         // page 2
         render: () => {
-            return `<div class="content">
+            return `<div class="content intro">
                 <h1>Welcome to your digital yearbook!</h1>
+                <p>
+                    A digital space to share your memories with your classmates. Add your class photo and click <img class="icon_text" src="images/icons/text.png" alt="text"> 
+                    to add text to the pages or <img class="icon_text" src="images/icons/sticker.png" alt="text"> to add stickers. You can drag and drop 
+                    them where ever you'd like on the page.
+                </p>
             </div>`;
         },
         callback: () => {},
