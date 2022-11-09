@@ -3,94 +3,118 @@ const pageLayouts = [
         render: () => {
             return `<div class="content"></div>`;
         },
-        callback: () => {
-        },
+        callback: () => {},
     },
-    { // cover
+    {
+        // cover
         render: () => {
             return `<div class="content"></div>`;
         },
-        callback: () => {
-        },
+        callback: () => {},
     },
-    { // page 1
+    {
+        // page 1
         render: () => {
             return `<div class="content"></div>`;
         },
-        callback: () => {
-        },
+        callback: () => {},
     },
-    { // page 2
+    {
+        // page 2
         render: () => {
             return `<div class="content">
                 <h1>Welcome to your digital yearbook!</h1>
             </div>`;
         },
-        callback: () => {
-        },
+        callback: () => {},
     },
-    { // page 3
+    {
+        // page 3
         render: () => {
             return `<div class="content">
                 <h1>Class of</h1>
                   <div class="class_photos">
                     <div id="class_photo_1" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_2" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_3" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_4" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_5" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_6" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_7" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_8" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_9" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_10" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_11" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
                     <div id="class_photo_12" class="class_photo left_page">
-                      <img class="icon" src="images/icons/camera.png" />
+                      <div class="icon">
+                        <img src="images/icons/camera.png" />
+                      </div>
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
@@ -98,71 +122,96 @@ const pageLayouts = [
                 </div>`;
         },
         callback: () => {
-            addClassPhotoClickEvents("left_page");
+            addClassPhotoClickEvents('left_page');
         },
     },
-    { // page 4
+    {
+        // page 4
         render: () => {
             return `<div class="content">
               <h1>2023</h1>
               <div class="class_photos">
                 <div id="class_photo_13" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_14" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_15" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_16" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_17" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_18" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_19" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_20" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_21" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_22" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_23" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
                 <div id="class_photo_24" class="class_photo right_page">
-                  <img class="icon" src="images/icons/camera.png" />
+                  <div class="icon">
+                    <img src="images/icons/camera.png" />
+                  </div>
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
@@ -170,132 +219,137 @@ const pageLayouts = [
             </div>`;
         },
         callback: () => {
-            addClassPhotoClickEvents("right_page");
+            addClassPhotoClickEvents('right_page');
         },
     },
     {
-        render: () => {
-        },
-        callback: () => {
-        },
+        render: () => {},
+        callback: () => {},
     },
     {
-        render: () => {
-        },
-        callback: () => {
-        },
+        render: () => {},
+        callback: () => {},
     },
 ];
 
 // socket events
 const socket = io();
-socket.on("all elements", function (elements) {
+socket.on('all elements', function (elements) {
     Object.values(elements).forEach((element) => {
         updateElement(element);
     });
 });
 
-socket.on("show element", function (element) {
+socket.on('show element', function (element) {
     updateElement(element);
 });
 
 function updateElement(element) {
     const el = $(`#${element.id}`);
     const type = element.element_type;
-    if ($("#yearbook").turn("view").toString() === element.pageView) {
+    if ($('#yearbook').turn('view').toString() === element.pageView) {
         if (el.length > 0) {
-            switch(type) {
+            switch (type) {
                 case 'text':
                     el.text(element.content).css({
-                        top: element.top + "px",
-                        left: element.left + "px",
+                        top: element.top + 'px',
+                        left: element.left + 'px',
                     });
                     break;
                 case 'sticker':
                 default:
                     el.css({
-                        top: element.top + "px",
-                        left: element.left + "px",
+                        top: element.top + 'px',
+                        left: element.left + 'px',
                     });
                     break;
             }
         } else {
             let newEl;
-            switch(type) {
+            switch (type) {
                 case 'text':
-                    newEl = $(`<span id="${element.id}" class="emitted_text"></span>`)
+                    newEl = $(
+                        `<span id="${element.id}" class="emitted_text"></span>`
+                    )
                         .text(element.content)
-                        .css({top: element.top + "px", left: element.left + "px"});
+                        .css({
+                            top: element.top + 'px',
+                            left: element.left + 'px',
+                        });
                     break;
                 case 'sticker':
-                    newEl = $(`<img id="${element.id}" src="images/stickers/${element.content}.gif" alt="${element.content}" class="sticker" />`)
-                        .css({top: element.top + "px", left: element.left + "px"});
+                    newEl = $(
+                        `<img id="${element.id}" src="images/stickers/${element.content}.gif" alt="${element.content}" class="sticker" />`
+                    ).css({
+                        top: element.top + 'px',
+                        left: element.left + 'px',
+                    });
                     break;
                 default:
                     break;
             }
 
-            $("#droppable_area").append(newEl);
+            $('#droppable_area').append(newEl);
         }
     }
 }
 
-socket.on("all gifs", (gifs) => {
-    console.log("got the gifs", gifs);
+socket.on('all gifs', (gifs) => {
+    console.log('got the gifs', gifs);
     Object.values(gifs).forEach((gif) => {
         addGif(gif);
     });
 });
 
-socket.on("show gif", (gif) => {
+socket.on('show gif', (gif) => {
     addGif(gif);
 });
 
 const addGif = (gif) => {
     const gifSelector = `#${gif.htmlId}`;
 
-  // if the gif placeholder doesn't already have a gif image:
-  // * add the image
-  // * remove the video element
-  if ($(`${gifSelector} img.gif`).length === 0) {
-    //show the image from the db
-    const img = $("<img>");
-    img.attr("class", "gif");
-    img.attr("src", gif.dataUri);
-    img.appendTo(gifSelector);
+    // if the gif placeholder doesn't already have a gif image:
+    // * add the image
+    // * remove the video element
+    if ($(`${gifSelector} img.gif`).length === 0) {
+        //show the image from the db
+        const img = $('<img>');
+        img.attr('class', 'gif');
+        img.attr('src', gif.dataUri);
+        img.appendTo(gifSelector);
 
-    $(`${gifSelector} img.icon`).remove();
-    $(`${gifSelector} video`).remove();
-  }
+        $(`${gifSelector} .icon`).remove();
+        $(`${gifSelector} video`).remove();
+    }
 };
 
 // init turnjs
 $(window).ready(function () {
-    const pages = $("#yearbook .page");
+    const pages = $('#yearbook .page');
     pages.each((i, page) => {
         if (i !== 0 && i !== pages.length - 1) {
             $(page).append($('<div class="page_number">').text(i));
         }
-        $(page).addClass(i % 2 === 0 ? "right_page" : "left_page");
-        $(page).attr("index", i);
+        $(page).addClass(i % 2 === 0 ? 'right_page' : 'left_page');
+        $(page).attr('index', i);
     });
-    $("#yearbook").turn({
-        display: "double",
+    $('#yearbook').turn({
+        display: 'double',
         duration: 1000,
         acceleration: true,
         gradients: !$.isTouch,
         elevation: 100,
         when: {
             turned: function (e, page) {
-                const currentView = $("#yearbook").turn("view");
-                $("#droppable_area .layout").append(
+                const currentView = $('#yearbook').turn('view');
+                $('#droppable_area .layout').append(
                     pageLayouts[currentView[0]].render(),
                     pageLayouts[currentView[1]].render()
                 );
                 pageLayouts[currentView[0]].callback();
                 pageLayouts[currentView[1]].callback();
-                socket.emit("get all elements");
-                socket.emit("get all gifs"); // FIXME: this should probalby only emitted for pages 3 and 4
+                socket.emit('get all elements');
+                socket.emit('get all gifs'); // FIXME: this should probalby only emitted for pages 3 and 4
             },
         },
     });
@@ -303,21 +357,21 @@ $(window).ready(function () {
 
 // events
 const saveGif = (htmlId, dataUri) => {
-    socket.emit("save gif", {
+    socket.emit('save gif', {
         htmlId,
         dataUri,
     });
 };
 
-$(window).bind("keydown", function (e) {
+$(window).bind('keydown', function (e) {
     if (e.keyCode === 37 || e.keyCode === 39) {
-        $("#droppable_area").empty();
-        $('<div class="layout">').appendTo("#droppable_area");
+        $('#droppable_area').empty();
+        $('<div class="layout">').appendTo('#droppable_area');
 
         if (e.keyCode == 37) {
-            $("#yearbook").turn("previous");
+            $('#yearbook').turn('previous');
         } else if (e.keyCode == 39) {
-            $("#yearbook").turn("next");
+            $('#yearbook').turn('next');
         }
     }
 });
@@ -328,9 +382,9 @@ $('.toolbar_option[type="add_text"]').click((e) => {
         `<span id="${id}" class="draggable_text" contenteditable="">New Text</span>`
     ).draggable({
         drag: function (e, ui) {
-            socket.emit("place element", {
+            socket.emit('place element', {
                 id,
-                pageView: $("#yearbook").turn("view").toString(),
+                pageView: $('#yearbook').turn('view').toString(),
                 element_type: 'text',
                 content: $(ui.helper).text(),
                 left: ui.position.left,
@@ -338,9 +392,9 @@ $('.toolbar_option[type="add_text"]').click((e) => {
             });
         },
         stop: function (e, ui) {
-            socket.emit("update element", {
+            socket.emit('update element', {
                 id,
-                pageView: $("#yearbook").turn("view").toString(),
+                pageView: $('#yearbook').turn('view').toString(),
                 element_type: 'text',
                 content: $(ui.helper).text(),
                 left: ui.position.left,
@@ -348,73 +402,77 @@ $('.toolbar_option[type="add_text"]').click((e) => {
             });
         },
     });
-    socket.emit("create element", {
+    socket.emit('create element', {
         id,
-        pageView: $("#yearbook").turn("view").toString(),
+        pageView: $('#yearbook').turn('view').toString(),
         element_type: 'text',
         content: newTextInput.text(),
         left: newTextInput.position().left,
         top: newTextInput.position().top,
     });
-    $("#droppable_area").append(newTextInput);
+    $('#droppable_area').append(newTextInput);
 });
 
 $('.toolbar_option[type="add_sticker"] > img').click((e) => {
     $('.stickers_wrapper').toggle();
 });
 
-$('.toolbar_option[type="add_sticker"] .stickers_wrapper .sticker').click((e) => {
-    const id = Math.random().toString(16).slice(2);
-    const newSticker = $(e.currentTarget).clone().attr('id', id);
-    newSticker
-        .draggable({
-            drag: function (e, ui) {
-                socket.emit("place element", {
-                    id,
-                    pageView: $("#yearbook").turn("view").toString(),
-                    element_type: 'sticker',
-                    content: $(ui.helper).attr('name'),
-                    left: ui.position.left,
-                    top: ui.position.top,
-                });
-            },
-            stop: function (e, ui) {
-                socket.emit("update element", {
-                    id,
-                    pageView: $("#yearbook").turn("view").toString(),
-                    element_type: 'sticker',
-                    content: $(ui.helper).attr('name'),
-                    left: ui.position.left,
-                    top: ui.position.top,
-                });
-            },
-        })
-        .appendTo('#droppable_area');
-    socket.emit("create element", {
-        id,
-        pageView: $("#yearbook").turn("view").toString(),
-        element_type: 'sticker',
-        content: newSticker.attr('name'),
-        left: newSticker.position().left,
-        top: newSticker.position().top,
-    });
-    $('.stickers_wrapper').toggle();
-});
+$('.toolbar_option[type="add_sticker"] .stickers_wrapper .sticker').click(
+    (e) => {
+        const id = Math.random().toString(16).slice(2);
+        const newSticker = $(e.currentTarget).clone().attr('id', id);
+        newSticker
+            .draggable({
+                drag: function (e, ui) {
+                    socket.emit('place element', {
+                        id,
+                        pageView: $('#yearbook').turn('view').toString(),
+                        element_type: 'sticker',
+                        content: $(ui.helper).attr('name'),
+                        left: ui.position.left,
+                        top: ui.position.top,
+                    });
+                },
+                stop: function (e, ui) {
+                    socket.emit('update element', {
+                        id,
+                        pageView: $('#yearbook').turn('view').toString(),
+                        element_type: 'sticker',
+                        content: $(ui.helper).attr('name'),
+                        left: ui.position.left,
+                        top: ui.position.top,
+                    });
+                },
+            })
+            .appendTo('#droppable_area');
+        socket.emit('create element', {
+            id,
+            pageView: $('#yearbook').turn('view').toString(),
+            element_type: 'sticker',
+            content: newSticker.attr('name'),
+            left: newSticker.position().left,
+            top: newSticker.position().top,
+        });
+        $('.stickers_wrapper').toggle();
+    }
+);
 
 const addClassPhotoClickEvents = (classSelector) => {
-  $(`.${classSelector}`).click((e) => {
-    const item = e.currentTarget;
-    // only allow a new image to be added if the item doesn't already have an image
-    if ($(item).find("img.gif").length === 0) {
-      console.log("clicked on an image", item.id);
-      const imagePlaceholder = document.querySelector(`#${item.id}`);
-      const video = imagePlaceholder.querySelector("video");
-      const countdown = imagePlaceholder.querySelector(".countdown");
-      countdown.innerHTML = `<div class="lds-hourglass"></div>`;
+    $(`.${classSelector}`).click((e) => {
+        const item = e.currentTarget;
+        // only allow a new image to be added if the item doesn't already have an image
+        if ($(item).find('img.gif').length === 0) {
+            console.log('clicked on an image', item.id);
+            const imagePlaceholder = document.querySelector(`#${item.id}`);
+            const video = imagePlaceholder.querySelector('video');
+            const countdown = imagePlaceholder.querySelector('.countdown');
+            const cameraIcon = imagePlaceholder.querySelector('.icon img');
+            console.log(cameraIcon);
+            cameraIcon.className = 'spin';
 
             if (navigator.mediaDevices.getUserMedia) {
                 navigator.mediaDevices
-                    .getUserMedia({video: true})
+                    .getUserMedia({ video: true })
                     .then(function (stream) {
                         video.srcObject = stream;
                         return stream;
@@ -430,34 +488,37 @@ const addClassPhotoClickEvents = (classSelector) => {
                             timeleft -= 1;
                         }, 1000);
 
-            setTimeout(() => {
-              console.log("creating the gif");
-              gifshot.createGIF(
-                {
-                  cameraStream: stream,
-                  gifWidth: imagePlaceholder.clientWidth,
-                  gifHeight: imagePlaceholder.clientHeight,
-                },
-                function (obj) {
-                  if (!obj.error) {
-                    const animatedImage = document.createElement("img");
-                    animatedImage.className = "gif";
-                    animatedImage.src = obj.image;
-                    imagePlaceholder.appendChild(animatedImage);
-                    video.remove();
-                    countdown.remove();
-                    $(`#${item.id} img.icon`).remove();
-                    saveGif(item.id, obj.image);
-                  }
-                }
-              );
-            }, 5000);
-          })
-          .catch(function (error) {
-            console.log("Error", error);
-            console.log("Something went wrong!");
-          });
-      }
-    }
-  });
+                        setTimeout(() => {
+                            console.log('creating the gif');
+                            gifshot.createGIF(
+                                {
+                                    cameraStream: stream,
+                                    gifWidth: imagePlaceholder.clientWidth,
+                                    gifHeight: imagePlaceholder.clientHeight,
+                                },
+                                function (obj) {
+                                    if (!obj.error) {
+                                        const animatedImage =
+                                            document.createElement('img');
+                                        animatedImage.className = 'gif';
+                                        animatedImage.src = obj.image;
+                                        imagePlaceholder.appendChild(
+                                            animatedImage
+                                        );
+                                        video.remove();
+                                        countdown.remove();
+                                        $(`#${item.id} .icon`).remove();
+                                        saveGif(item.id, obj.image);
+                                    }
+                                }
+                            );
+                        }, 5000);
+                    })
+                    .catch(function (error) {
+                        console.log('Error', error);
+                        console.log('Something went wrong!');
+                    });
+            }
+        }
+    });
 };
