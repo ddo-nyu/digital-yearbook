@@ -30,16 +30,6 @@ app.post("/saveGif", (req, res) => {
   res.send({ success: true, message: "gif saved" });
 });
 
-app.get("/getAllGifs", (req, res) => {
-  console.log("getting all gifs");
-  db.find({ type: 'gif' }, (error, docs) => {
-    console.log("Error", error);
-    // TODO: handle error
-    const allGifs = { data: docs };
-    res.json(allGifs);
-  });
-});
-
 server.listen(port, () => {
   console.log("Server listening at port: " + port);
 });
@@ -90,6 +80,17 @@ io.on("connection", (socket) => {
 
       io.emit('all elements', docs);
     });
+  })
+
+  socket.on("get all gifs", () => {
+    db.find({type: "gif"}, (error, docs) => {
+      if (error) {
+        console.log("Error", error);
+        return;
+      }
+
+      io.emit('all gifs', docs);
+    })
   })
 
   //Listen for this client to disconnect

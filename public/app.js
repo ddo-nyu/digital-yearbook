@@ -175,6 +175,29 @@ function updateElement(element) {
     }
 }
 
+socket.on("all gifs", (gifs) => {
+  console.log("got the gifs", gifs);
+  Object.values(gifs).forEach((gif) => {
+    addGif(gif);
+  });
+});
+
+const addGif = (gif) => {
+  const gifSelector = `#${gif.htmlId}`;
+
+  // if the gif placeholder doesn't already have an image:
+  // * add the image
+  // * remove the video element
+  if ($(`${gifSelector} img`).length === 0) {
+    //show the image from the db
+    const img = $("<img>");
+    img.attr("src", gif.dataUri);
+    img.appendTo(gifSelector);
+
+    $(`${gifSelector} video`).remove();
+  }
+};
+
 // init turnjs
 $(window).ready(function () {
     const pages = $("#yearbook .page");
@@ -198,6 +221,7 @@ $(window).ready(function () {
                 pageLayouts[currentView[0]].callback();
                 pageLayouts[currentView[1]].callback();
                 socket.emit('get all elements');
+                socket.emit("get all gifs"); // FIXME: this should probalby only emitted for pages 3 and 4
             },
         },
     });
@@ -219,27 +243,6 @@ const saveGif = (id, dataUri) => {
         }
     });
 };
-
-const getAllGifs = () => {
-    fetch("/getAllGifs")
-        .then((response) => response.json())
-        .then((data) => {
-            data.data.forEach((element) => {
-                const elementSelector = `#${element.htmlId}`;
-                //show the image from the db
-                const img = $("<img>");
-                img.attr("src", element.dataUri);
-                img.appendTo(elementSelector);
-
-                //remove the video element
-                $(`${elementSelector} video`).remove();
-            });
-        });
-};
-
-$(window).ready(() => {
-    getAllGifs();
-});
 
 $(window).bind("keydown", function (e) {
     if (e.keyCode === 37 || e.keyCode === 39) {
