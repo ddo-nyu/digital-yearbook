@@ -232,6 +232,8 @@ const pageLayouts = [
     },
 ];
 
+const createdElements = {};
+
 // socket events
 const socket = io();
 socket.on('all elements', function (elements) {
@@ -247,7 +249,7 @@ socket.on('show element', function (element) {
 function updateElement(element) {
     const el = $(`#${element.id}`);
     const type = element.element_type;
-    if ($('#yearbook').turn('view').toString() === element.pageView) {
+    if ($("#yearbook").turn("view").toString() === element.pageView) {
         if (el.length > 0) {
             switch (type) {
                 case 'text':
@@ -353,8 +355,13 @@ $(window).ready(function () {
                 );
                 pageLayouts[currentView[0]].callback();
                 pageLayouts[currentView[1]].callback();
-                socket.emit('get all elements');
-                socket.emit('get all gifs'); // FIXME: this should probalby only emitted for pages 3 and 4
+                Object.values(createdElements)
+                    .filter((el) => el.pageView === currentView.toString())
+                    .forEach((el) => {
+                        el.appendTo('#droppable_area');
+                    })
+                socket.emit("get all elements");
+                socket.emit("get all gifs"); // FIXME: this should probalby only emitted for pages 3 and 4
             },
         },
     });
@@ -383,25 +390,65 @@ $(window).bind('keydown', function (e) {
 
 $('.toolbar_option[type="add_text"]').click((e) => {
     const id = Math.random().toString(16).slice(2);
-    const newTextInput = $(
-        `<span id="${id}" class="draggable_text" contenteditable="">New Text</span>`
-    ).draggable({
-        drag: function (e, ui) {
-            socket.emit('place element', {
+    const inputEl = $('<input placeholder="Enter Text" />')
+        .change((e) => {
+            const pageView = $("#yearbook").turn("view").toString();
+            const parent = $(e.currentTarget).parent();
+            const val = $(e.currentTarget).val();
+            const span = $(e.currentTarget).siblings('span')
+            span.text(val).toggle();
+            $(e.currentTarget).toggle();
+            const params = {
                 id,
-                pageView: $('#yearbook').turn('view').toString(),
+                pageView,
+                element_type: 'text',
+                content: val,
+                left: parent.position.left,
+                top: parent.position.top,
+            };
+            socket.emit("update element", params);
+            socket.emit("place element", params);
+            createdElements[pageView][id] = parent;
+        });
+    const newTextInput = $(
+        `<div class="draggable_text">`
+    )
+        .attr('id', id)
+        .append($('<span>New Text</span>'))
+        .append(inputEl)
+        .on({
+            dblclick: (e) => {
+                $(e.currentTarget).children().toggle();
+                $(e.currentTarget).children('input').focus();
+            }
+        })
+        .draggable({
+        drag: function (e, ui) {
+            const pageView = $("#yearbook").turn("view").toString();
+            socket.emit("place element", {
+                id,
+                pageView,
                 element_type: 'text',
                 content: $(ui.helper).text(),
                 left: ui.position.left,
                 top: ui.position.top,
             });
+            createdElements[pageView][id].css({
+                left: ui.position.left,
+                top: ui.position.top,
+            });
         },
         stop: function (e, ui) {
-            socket.emit('update element', {
+            const pageView = $("#yearbook").turn("view").toString();
+            socket.emit("update element", {
                 id,
-                pageView: $('#yearbook').turn('view').toString(),
+                pageView,
                 element_type: 'text',
                 content: $(ui.helper).text(),
+                left: ui.position.left,
+                top: ui.position.top,
+            });
+            createdElements[pageView][id].css({
                 left: ui.position.left,
                 top: ui.position.top,
             });
@@ -415,7 +462,16 @@ $('.toolbar_option[type="add_text"]').click((e) => {
         left: newTextInput.position().left,
         top: newTextInput.position().top,
     });
-    $('#droppable_area').append(newTextInput);
+    $("#droppable_area").append(newTextInput);
+
+    const pageView = $("#yearbook").turn("view").toString();
+    if(createdElements[pageView]) {
+        createdElements[pageView][id] = newTextInput;
+    } else {
+        createdElements[pageView] = {
+            [id]: newTextInput
+        };
+    }
 });
 
 $('.toolbar_option[type="add_sticker"] > img').click((e) => {

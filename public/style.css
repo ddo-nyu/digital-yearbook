@@ -171,6 +171,17 @@ ul, li {
     user-select: none; /* Standard syntax */
 }
 
+.draggable_text input {
+    display: none;
+    font-size: 2rem;
+    font-family: 'Permanent Marker', cursive;
+    background: none;
+    border: none;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
 .emitted_text {
     position: absolute;
     z-index: 100;
