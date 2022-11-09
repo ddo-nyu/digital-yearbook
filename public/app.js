@@ -22,51 +22,51 @@ const pageLayouts = [
             return `<div class="content">
                 <h1>Class of</h1>
                   <div class="class_photos">
-                    <div id="class_photo_1" class="class_photo">
+                    <div id="class_photo_1" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_2" class="class_photo">
+                    <div id="class_photo_2" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_3" class="class_photo">
+                    <div id="class_photo_3" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_4" class="class_photo">
+                    <div id="class_photo_4" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_5" class="class_photo">
+                    <div id="class_photo_5" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_6" class="class_photo">
+                    <div id="class_photo_6" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_7" class="class_photo">
+                    <div id="class_photo_7" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_8" class="class_photo">
+                    <div id="class_photo_8" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_9" class="class_photo">
+                    <div id="class_photo_9" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_10" class="class_photo">
+                    <div id="class_photo_10" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_11" class="class_photo">
+                    <div id="class_photo_11" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
-                    <div id="class_photo_12" class="class_photo">
+                    <div id="class_photo_12" class="class_photo left_page">
                       <video autoplay="true"></video>
                       <div class="countdown"></div>
                     </div>
@@ -74,7 +74,7 @@ const pageLayouts = [
                 </div>`;
         },
         callback: () => {
-            addClassPhotoClickEvents();
+            addClassPhotoClickEvents("left_page");
         },
     },
     {
@@ -82,51 +82,51 @@ const pageLayouts = [
             return `<div class="content">
               <h1>2023</h1>
               <div class="class_photos">
-                <div id="class_photo_13" class="class_photo">
+                <div id="class_photo_13" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_14" class="class_photo">
+                <div id="class_photo_14" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_15" class="class_photo">
+                <div id="class_photo_15" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_16" class="class_photo">
+                <div id="class_photo_16" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_17" class="class_photo">
+                <div id="class_photo_17" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_18" class="class_photo">
+                <div id="class_photo_18" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_19" class="class_photo">
+                <div id="class_photo_19" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_20" class="class_photo">
+                <div id="class_photo_20" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_21" class="class_photo">
+                <div id="class_photo_21" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_22" class="class_photo">
+                <div id="class_photo_22" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_23" class="class_photo">
+                <div id="class_photo_23" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
-                <div id="class_photo_24" class="class_photo">
+                <div id="class_photo_24" class="class_photo right_page">
                   <video autoplay="true"></video>
                   <div class="countdown"></div>
                 </div>
@@ -134,7 +134,7 @@ const pageLayouts = [
             </div>`;
         },
         callback: () => {
-            addClassPhotoClickEvents();
+            addClassPhotoClickEvents("right_page");
         },
     },
     {
@@ -287,8 +287,8 @@ $('.toolbar_option[type="add_text"]').click((e) => {
     $('#droppable_area').append(newTextInput);
 });
 
-function addClassPhotoClickEvents() {
-    $(".class_photo").click((e) => {
+function addClassPhotoClickEvents(classSelector) {
+    $(`.${classSelector}`).click((e) => {
         const item = e.currentTarget;
         console.log("clicked on an image", item.id);
         let imagePlaceholder = document.querySelector(`div#${item.id}`);
