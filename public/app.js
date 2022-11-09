@@ -290,15 +290,16 @@ $('.toolbar_option[type="add_text"]').click((e) => {
   $("#droppable_area").append(newTextInput);
 });
 
-function addClassPhotoClickEvents(classSelector) {
+const addClassPhotoClickEvents = (classSelector) => {
   $(`.${classSelector}`).click((e) => {
     const item = e.currentTarget;
     // only allow a new image to be added if the item doesn't already have an image
     if ($(item).find("img").length === 0) {
       console.log("clicked on an image", item.id);
-      let imagePlaceholder = document.querySelector(`div#${item.id}`);
+      const imagePlaceholder = document.querySelector(`#${item.id}`);
       const video = imagePlaceholder.querySelector("video");
       const countdown = imagePlaceholder.querySelector(".countdown");
+      countdown.innerHTML = `<div class="lds-hourglass"></div>`;
 
       if (navigator.mediaDevices.getUserMedia) {
         navigator.mediaDevices
@@ -346,4 +347,4 @@ function addClassPhotoClickEvents(classSelector) {
       }
     }
   });
-}
+};
