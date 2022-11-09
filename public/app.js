@@ -295,7 +295,6 @@ function updateElement(element) {
 }
 
 socket.on('all gifs', (gifs) => {
-    console.log('got the gifs', gifs);
     Object.values(gifs).forEach((gif) => {
         addGif(gif);
     });
